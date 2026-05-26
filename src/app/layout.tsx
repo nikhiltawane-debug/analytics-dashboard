@@ -2,14 +2,8 @@ import { geistMono, jakartaSans } from "@/lib/font";
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { AppSidebar } from "@/components/layout/AppSidebar";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import AppNavbar from "@/components/layout/AppNavbar";
 
 export const metadata: Metadata = {
   title: "PulseBoard",
@@ -25,24 +19,23 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${jakartaSans.variable} ${geistMono.variable} h-full antialiased p-3`}
+      suppressHydrationWarning
     >
       <body className="min-h-full bg-background font-sans">
-        {/* Global providers used across the app */}
-        <TooltipProvider delayDuration={150}>
-          <SidebarProvider>
-            {/* App navigation */}
-            <AppSidebar />
-
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          storageKey="theme"
+        >
+          {/* Global providers used across the app */}
+          <TooltipProvider delayDuration={150}>
             {/* Main page content */}
-            <SidebarInset>
-              <main className="relative flex min-h-screen flex-1 flex-col">
-                <AppNavbar />
-
-                <div className="flex-1 p-6">{children}</div>
-              </main>
-            </SidebarInset>
-          </SidebarProvider>
-        </TooltipProvider>
+            <main className="relative flex min-h-screen flex-1 flex-col">
+              <div className="flex-1">{children}</div>
+            </main>
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,0 +1,50 @@
+{
+  "global": {
+    "appName": "InsightFlow",
+    "description": "Revenue analytics dashboard"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "nameMin": "Name must be at least 3 characters",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Enter valid email",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 6 characters",
+    "confirmPasswordRequired": "Confirm password is required",
+    "confirmPasswordMin": "Confirm password must be at least 6 characters",
+    "passwordsDontMatch": "Passwords don't match"
+  },
+  "buttonLabels": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "register": "Register"
+  },
+  "formLabels": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password"
+  },
+  "placeholders": {
+    "email": "abc@example.com",
+    "password": "Enter your password"
+  },
+  "messages": {
+    "welcome": "Welcome back",
+    "loginSuccess": "You have successfully logged in!",
+    "loginError": "Invalid email or password. Please try again.",
+    "loginToYourAccount": "Login to your account",
+    "signupPrompt": "Don't have an account?"
+  },
+  "auth": {
+    "forgotPassword": "Forgot password?",
+    "signup": "Sign up",
+    "login": "Login",
+    "analyticsOverview": "Analytics Overview",
+    "marketingDashboard": "Marketing Dashboard",
+    "live": "Live",
+    "forgotPasswordInstructions": "Enter your email and we’ll send you reset instructions.",
+    "sendResetLink": "Send reset link",
+    "rememberPassword": "Remember your password?"
+  }
+}

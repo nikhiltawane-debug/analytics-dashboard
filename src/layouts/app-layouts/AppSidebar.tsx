@@ -53,13 +53,13 @@ export function AppSidebar() {
         >
           {/* Logo Container */}
           <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Store className="size-5" />
+            <Store className="size-icon-lg" />
           </div>
 
           {/* Text Container */}
           <div className="flex flex-col overflow-hidden transition-all duration-200 group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0">
-            <Typography variant="h4" className="truncate leading-none">
-              PulseBoard
+            <Typography variant="h4" className="truncate leading-normal">
+              InsightFlow
             </Typography>
             <Typography
               variant="small"
@@ -82,7 +82,7 @@ export function AppSidebar() {
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
-                      <item.icon />
+                      <item.icon className="size-icon-md" />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
