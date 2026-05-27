@@ -4,9 +4,10 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "PulseBoard",
+  title: "InsightFlow",
   description: "Revenue analytics dashboard",
 };
 
@@ -34,6 +35,9 @@ export default function RootLayout({
             <main className="relative flex min-h-screen flex-1 flex-col">
               <div className="flex-1">{children}</div>
             </main>
+            {/* toaster for whole app, can be used in any component without
+            needing to add it again */}
+            <Toaster />
           </TooltipProvider>
         </ThemeProvider>
       </body>

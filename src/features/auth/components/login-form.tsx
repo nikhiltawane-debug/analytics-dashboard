@@ -9,10 +9,12 @@ import {
   LoginFormValues,
   loginSchema,
 } from "@/features/auth/schemas/login-schema";
+import { loginAction } from "@/features/auth/server-actions/login-action";
 import en from "@/locale/en.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 const { messages, placeholders, formLabels, buttonLabels, auth } = en;
 
 const defaultValues: LoginFormValues = {
@@ -33,8 +35,14 @@ export default function LoginForm() {
 
   console.log("Form Errors:", errors);
 
-  const onSubmitForm = (data: LoginFormValues) => {
-    console.log("Form Data:", data);
+  const onSubmitForm = async (data: LoginFormValues) => {
+    const response = await loginAction(data);
+
+    console.log("Login Response:", response);
+    if (response?.success === false) {
+      toast.error(response.message);
+      return;
+    }
   };
 
   return (
@@ -46,7 +54,12 @@ export default function LoginForm() {
         </Typography>
       </div>
 
-      <form className="space-y-2" onSubmit={handleSubmit(onSubmitForm)}>
+      <form
+        className="space-y-2"
+        onSubmit={handleSubmit(onSubmitForm, (errors) => {
+          console.log("VALIDATION ERRORS:", errors);
+        })}
+      >
         <Input
           placeholder={placeholders.email}
           label={formLabels.email}
@@ -73,7 +86,12 @@ export default function LoginForm() {
           </div>
         </div>
 
-        <Button type="submit" className="w-full" size="lg">
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          isLoading={isSubmitting}
+        >
           {buttonLabels.login}
         </Button>
       </form>

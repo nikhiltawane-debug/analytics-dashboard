@@ -1,13 +1,27 @@
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { CLIENT_ROUTES } from "@/config/routes";
+import { createClient } from "@/lib/supabase/server";
 import { AppSidebar } from "@/layouts/app-layouts/AppSidebar";
 import AppNavbar from "@/layouts/app-layouts/AppNavbar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { redirect } from "next/navigation";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = true; // Replace with actual authentication logic
+export default async function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = await createClient();
 
-  if (!isAuthenticated) {
-    redirect("/login");
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  console.log("Protected User:", user);
+  console.log("Protected Error:", error);
+
+  if (!user) {
+    redirect(CLIENT_ROUTES.AUTH.LOGIN);
   }
 
   return (

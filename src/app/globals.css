@@ -181,6 +181,32 @@
 }
 
 /* ==================================================
+   SONNER TOAST OVERRIDES
+================================================== */
+
+/* Move close button to the right, vertically centered */
+[data-sonner-toast] [data-close-button] {
+  left: auto !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  border: 1px solid oklch(1 0 0 / 12%) !important;
+  background: oklch(1 0 0 / 8%) !important;
+  color: var(--muted-foreground) !important;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: oklch(1 0 0 / 16%) !important;
+  color: var(--foreground) !important;
+}
+
+/* Add right padding so text doesn't overlap the button */
+[data-sonner-toast] {
+  padding-right: 44px !important;
+}
+
+/* ==================================================
    BASE LAYER
 ================================================== */
 

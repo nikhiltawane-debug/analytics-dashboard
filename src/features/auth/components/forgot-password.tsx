@@ -5,13 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
 import { CLIENT_ROUTES } from "@/config/routes";
 import {
-  ForgotPasswordFormValues,
-  forgotPasswordSchema,
+    ForgotPasswordFormValues,
+    forgotPasswordSchema,
 } from "@/features/auth/schemas/forgot-password-schema";
+import { forgotPasswordAction } from "@/features/auth/server-actions/forgot-password-action";
 import en from "@/locale/en.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const { placeholders, formLabels, buttonLabels, auth } = en;
 
@@ -30,8 +32,15 @@ export default function ForgotPasswordForm() {
   });
 
   // handle form submission
-  const onSubmitForm = (data: ForgotPasswordFormValues) => {
-    console.log("Form Data:", data);
+  const onSubmitForm = async (data: ForgotPasswordFormValues) => {
+    const response = await forgotPasswordAction(data);
+
+    if (response.success) {
+      toast.success(response.message);
+      return;
+    }
+
+    toast.error(response.message);
   };
 
   return (
@@ -53,7 +62,12 @@ export default function ForgotPasswordForm() {
           error={errors.email?.message}
         />
 
-        <Button type="submit" className="w-full" size="lg">
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          isLoading={isSubmitting}
+        >
           {auth.sendResetLink}
         </Button>
       </form>

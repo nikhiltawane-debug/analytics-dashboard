@@ -1,10 +1,23 @@
+import { CLIENT_ROUTES } from "@/config/routes";
 import AuthPreview from "@/features/auth/components/auth-preview";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/dist/client/components/navigation";
 
-export default function PublicLayout({
+export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect(CLIENT_ROUTES.APP.DASHBOARD);
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-6">
       <div className="grid w-full max-w-5xl overflow-hidden rounded-3xl border bg-card shadow-xl md:grid-cols-2">

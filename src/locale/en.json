@@ -9,16 +9,17 @@
     "emailRequired": "Email is required",
     "emailInvalid": "Enter valid email",
     "passwordRequired": "Password is required",
-    "passwordMin": "Password must be at least 6 characters",
+    "passwordMin": "Password must be at least 8 characters",
     "confirmPasswordRequired": "Confirm password is required",
-    "confirmPasswordMin": "Confirm password must be at least 6 characters",
+    "confirmPasswordMin": "Confirm password must be at least 8 characters",
     "passwordsDontMatch": "Passwords don't match"
   },
   "buttonLabels": {
     "login": "Login",
     "signup": "Sign Up",
     "logout": "Logout",
-    "register": "Register"
+    "register": "Register",
+    "resetPassword": "Reset Password"
   },
   "formLabels": {
     "email": "Email",

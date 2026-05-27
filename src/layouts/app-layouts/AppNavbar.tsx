@@ -1,11 +1,12 @@
 "use client";
 
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { Search, BellIcon } from "lucide-react";
-import { Typography } from "@/components/ui/typography";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Typography } from "@/components/ui/typography";
+import { logoutAction } from "@/features/auth/server-actions/logout-action";
+import { BellIcon, LogOut, Search } from "lucide-react";
 
 export default function AppNavbar() {
   return (
@@ -21,6 +22,18 @@ export default function AppNavbar() {
       </div>
 
       <div className="flex items-center gap-2">
+        <form action={logoutAction}>
+          <Button
+            type="submit"
+            variant="outline"
+            size="icon"
+            className="relative"
+            title="Logout"
+          >
+            <LogOut className="size-icon-sm" />
+          </Button>
+        </form>
+
         <Button
           variant="ghost"
           size="icon"

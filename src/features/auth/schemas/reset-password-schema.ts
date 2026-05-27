@@ -1,12 +1,10 @@
-import { z } from "zod";
+import z from "zod";
 import en from "@/locale/en.json";
 
 const v = en.validation;
 
-export const signupSchema = z
+export const resetPasswordSchema = z
   .object({
-    name: z.string().trim().min(1, v.nameRequired).min(3, v.nameMin),
-    email: z.string().trim().min(1, v.emailRequired).email(v.emailInvalid),
     password: z.string().min(1, v.passwordRequired).min(8, v.passwordMin),
     confirmPassword: z
       .string()
@@ -18,4 +16,4 @@ export const signupSchema = z
     path: ["confirmPassword"],
   });
 
-export type SignUpFormValues = z.infer<typeof signupSchema>;
+export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;

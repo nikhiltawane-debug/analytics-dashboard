@@ -1,85 +1,63 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
 import { CLIENT_ROUTES } from "@/config/routes";
 import { PasswordInput } from "@/features/auth/components/password-input";
 import {
-  SignUpFormValues,
-  signupSchema,
-} from "@/features/auth/schemas/signup-schema";
+    ResetPasswordFormValues,
+    resetPasswordSchema,
+} from "@/features/auth/schemas/reset-password-schema";
+import { resetPasswordAction } from "@/features/auth/server-actions/reset-password-action";
 import en from "@/locale/en.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { loginAction } from "@/features/auth/server-actions/login-action";
-import { signupAction } from "@/features/auth/server-actions/signup-action";
 import { toast } from "sonner";
 
-const defaultValues: SignUpFormValues = {
-  name: "",
-  email: "",
+const defaultValues: ResetPasswordFormValues = {
   password: "",
   confirmPassword: "",
 };
 
-  const { messages, placeholders, formLabels, buttonLabels } = en;
+const { formLabels, buttonLabels } = en;
 
-
-export default function SignupForm() {
-
+export default function ResetPasswordForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormValues>({
-    resolver: zodResolver(signupSchema),
+  } = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues,
     reValidateMode: "onChange",
   });
 
-  const onSubmitForm = async (data: SignUpFormValues) => {
-    const response = await signupAction(data);
+  const onSubmitForm = async (data: ResetPasswordFormValues) => {
+    const response = await resetPasswordAction(data);
 
-    console.log("Signup Response:", response);
+    console.log("Reset Password Response:", response);
     if (response?.success === false) {
       toast.error(response.message);
       return;
     }
 
-    toast.success("Account created successfully");
+    toast.success("Password reset successfully");
   };
 
   return (
     <>
       <div className="space-y-2 text-center">
-        <Typography variant="h2">Create account</Typography>
+        <Typography variant="h2">Reset Password</Typography>
         <Typography variant="p" affects="removePMargin">
-          Start tracking your analytics today
+          Enter your new password below
         </Typography>
       </div>
 
       <form className="space-y-2" onSubmit={handleSubmit(onSubmitForm)}>
-        <Input
-          placeholder="Enter your name"
-          label="Full name"
-          autoComplete="name"
-          {...register("name")}
-          error={errors.name?.message}
-        />
-
-        <Input
-          placeholder={placeholders.email}
-          label={formLabels.email}
-          autoComplete="email"
-          {...register("email")}
-          error={errors.email?.message}
-        />
-
         <PasswordInput
           label={formLabels.password}
-          autoComplete="current-password"
+          autoComplete="new-password"
           {...register("password")}
           error={errors.password?.message}
         />
@@ -97,7 +75,7 @@ export default function SignupForm() {
           size="lg"
           isLoading={isSubmitting}
         >
-          {buttonLabels.register}
+          {buttonLabels.resetPassword}
         </Button>
       </form>
 
